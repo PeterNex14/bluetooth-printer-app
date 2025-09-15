@@ -12,7 +12,8 @@ class PrinterHelper {
 
         printer.printFormattedText(
             "[C]<b>=== TOKEN LISTRIK ===</b>\n" +
-                    "[C]Kode: $token\n"
+                    "[C]Token:\n" +
+                    "[C]<font size='big'><b>$token</b></font>"
         )
 
         printer.disconnectPrinter()
