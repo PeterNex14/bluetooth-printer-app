@@ -8,12 +8,22 @@ class PrinterHelper {
 
     fun printToken(device: BluetoothDevice, token: String) {
         val connection = BluetoothConnection(device)
-        val printer = EscPosPrinter(connection, 203, 48f, 32)
+        val printer = EscPosPrinter(connection, 203, 38f, 32)
+
+        val groups: List<String> = if (token.contains(" ")) {
+            token.trim().split("\\s+".toRegex())
+        } else {
+            token.chunked(4)
+        }
+
+        val firstLine = groups.take(3).joinToString(" ")
+        val secondLine = groups.drop(3).joinToString(" ")
 
         printer.printFormattedText(
             "[C]<b>=== TOKEN LISTRIK ===</b>\n" +
                     "[C]Token:\n" +
-                    "[C]<font size='big'><b>$token</b></font>"
+                    "[C]<font size='big'><b>$firstLine</b></font>" +
+                    "[C]<font size='big'><b>$secondLine</b></font>"
         )
 
         printer.disconnectPrinter()
